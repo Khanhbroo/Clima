@@ -52,6 +52,7 @@ function Button({
       data-slot="button"
       className={cn(
         buttonVariants({ variant, size, className }),
+        "transition-none",
         "cursor-pointer"
       )}
       {...props}
