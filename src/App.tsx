@@ -7,6 +7,7 @@ import Layout from "@/components/layout";
 import WeatherDashboard from "@/pages/weather-dashboard";
 import CityPage from "@/pages/city-page";
 import "./App.css";
+import { Toaster } from "sonner";
 
 const client = new QueryClient({
   defaultOptions: {
@@ -48,6 +49,7 @@ function App() {
     <QueryClientProvider client={client}>
       <ThemeProvider defaultTheme="dark">
         <RouterProvider router={router} />
+        <Toaster richColors />
       </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocationSearch } from "@/hooks/use-weather";
 import { useSearchHistory } from "@/hooks/use-search-history";
+import { useFavourite } from "@/hooks/use-favourite";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,7 +14,7 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-import { Clock, Loader2, Search, XCircle } from "lucide-react";
+import { Clock, Loader2, Search, Star, XCircle } from "lucide-react";
 import { format } from "date-fns";
 
 const CitySearch = () => {
@@ -23,6 +24,7 @@ const CitySearch = () => {
 
   const { data: locationsData, isLoading } = useLocationSearch(query);
   const { history, clearHistory, addToHistory } = useSearchHistory();
+  const { favourites } = useFavourite();
 
   const handleSelectLocation = (cityData: string) => {
     const [lat, lon, name, country] = cityData.split("|");
@@ -61,9 +63,32 @@ const CitySearch = () => {
           {query.length > 2 && !isLoading && (
             <CommandEmpty>No cities found.</CommandEmpty>
           )}
-          <CommandGroup heading="Favourites">
-            <CommandItem>Calendar</CommandItem>
-          </CommandGroup>
+
+          {favourites.length > 0 && (
+            <CommandGroup>
+              <div className="flex items-center justify-between px-2 my-2">
+                <p className="text-sm text-muted-foreground">Favourites</p>
+              </div>
+
+              {favourites.map((city) => (
+                <CommandItem
+                  key={city.id}
+                  value={`${city.lat}|${city.lon}|${city.name}|${city.country}`}
+                  onSelect={handleSelectLocation}
+                >
+                  <Star className="mr-2 w-4 h-4 text-yellow-500" />
+                  <span>
+                    {city.name}
+                    {city.state && (
+                      <span className="text-sm text-muted-foreground">
+                        , {city.state}, {city.country}
+                      </span>
+                    )}
+                  </span>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          )}
 
           {/* Show history search */}
           {history.length > 0 && (
@@ -83,6 +108,7 @@ const CitySearch = () => {
                     Clear
                   </Button>
                 </div>
+
                 {history.map((location) => (
                   <CommandItem
                     key={`${location.lat}-${location.lon}`}
