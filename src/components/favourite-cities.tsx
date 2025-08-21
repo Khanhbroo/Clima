@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { useFavourite } from "@/hooks/use-favourite";
 import { useWeatherQuery } from "@/hooks/use-weather";
 import { Loader2, X } from "lucide-react";
@@ -36,6 +36,7 @@ const FavouriteCities = () => {
             );
           })}
         </div>
+        <ScrollBar orientation="horizontal" />
       </ScrollArea>
     </>
   );
@@ -56,7 +57,7 @@ function FavouriteCityTablet({
       onClick={() => navigate(`/city/${name}?lat=${lat}&lon=${lon}`)}
       role="button"
       tabIndex={0}
-      className="relative flex min-w-[270px] cursor-pointer items-center gap-3 rounded-lg border bg-card p-4 pr-8 shadow-sm transition-all hover:shadow-md"
+      className="relative flex min-w-[270px] cursor-pointer items-center gap-3 rounded-lg border bg-card p-4 pr-8 shadow-sm transition-none hover:shadow-md"
     >
       <Button
         variant="ghost"

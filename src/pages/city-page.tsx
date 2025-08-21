@@ -57,7 +57,7 @@ const CityPage = () => {
           <HourlyTemperature data={forecastQuery.data} />
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 items-start">
+        <div className="grid grid-cols-1 gap-6 items-start">
           <WeatherDetails data={weatherQuery.data} />
           <WeatherForecast data={forecastQuery.data} />
         </div>

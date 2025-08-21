@@ -4,7 +4,7 @@ import Header from "@/components/header";
 
 const Layout = ({ children }: PropsWithChildren) => {
   return (
-    <div className="bg-gradient-to-br from-background to-muted">
+    <div className="bg-gradient-to-br from-background to-muted overflow-x-clip">
       <Header />
       <main className="min-h-screen container mx-auto px-4 py-8">
         {children}
